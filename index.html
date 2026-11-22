@@ -1,180 +1,254 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11170f">
-  <meta name="description" content="Grugtopia — a Minecraft community built for adventure, friendship and a little chaos.">
-  <title>Grugtopia — Enter the wild</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-    :root{--bg:#10150f;--panel:#182018;--panel2:#202a1e;--line:#34412e;--text:#f0f1df;--muted:#a7b09a;--lime:#c6f36a;--green:#719b45;--orange:#e9a65b}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif}
-    a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
-    .topline{height:5px;background:linear-gradient(90deg,#536e37,#c6f36a,#e9a65b,#536e37)}
-    header{position:sticky;top:0;z-index:20;background:#10150feF;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}
-    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:-.04em;font-size:1.25rem}
-    .mark{width:38px;height:38px;display:grid;place-items:center;background:var(--lime);color:#17200f;border-radius:11px;font-size:1.25rem;box-shadow:4px 4px 0 #526c35}
-    .links{display:flex;gap:28px;color:var(--muted);font-size:.92rem}.links a:hover{color:var(--lime)}
-    .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border-radius:9px;background:var(--lime);color:#18210f;font-weight:700;border:1px solid var(--lime);transition:.2s;cursor:pointer}
-    .nav-cta:hover,.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
-    .menu{display:none;background:none;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:8px}
-    .hero{position:relative;overflow:hidden;padding:100px 0 88px;background:radial-gradient(ellipse at 78% 40%,#536e373b,transparent 38%),linear-gradient(135deg,#151d13,#10150f 60%)}
-    .hero:before{content:"";position:absolute;inset:0;opacity:.12;background-image:linear-gradient(#b9d18b22 1px,transparent 1px),linear-gradient(90deg,#b9d18b22 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,black,transparent)}
-    .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:55px}
-    .eyebrow,.mono{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem;color:var(--lime)}
-    h1{font-size:clamp(3.5rem,8vw,6.7rem);line-height:.91;letter-spacing:-.075em;margin:20px 0 22px;max-width:650px}
-    h1 span{color:var(--lime)}.lead{color:var(--muted);font-size:1.12rem;line-height:1.7;max-width:510px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn.secondary{background:transparent;color:var(--text);border-color:#657456}
-    .hero-note{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.82rem;margin-top:22px}
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 14px var(--orange)}
-    .world{min-height:360px;position:relative;display:grid;place-items:center}
-    .sun{position:absolute;width:210px;height:210px;border-radius:50%;background:#c6f36a18;filter:blur(4px)}
-    .island{position:relative;width:min(100%,430px);height:280px;filter:drop-shadow(0 28px 22px #0008)}
-    .island-top{position:absolute;left:8%;right:8%;top:24%;height:43%;background:linear-gradient(145deg,#91b45a,#587c39);clip-path:polygon(17% 0,100% 0,83% 100%,0 100%);border:2px solid #b4d47b}
-    .island-side{position:absolute;left:8%;right:8%;top:67%;height:22%;background:linear-gradient(90deg,#473d29,#75603c);clip-path:polygon(0 0,100% 0,83% 100%,17% 100%)}
-    .island-shadow{position:absolute;left:18%;right:18%;bottom:0;height:18%;background:#293820;clip-path:polygon(0 0,100% 0,80% 100%,20% 100%)}
-    .tree{position:absolute;z-index:3;bottom:38%;width:16px;height:78px;background:#59452d;left:46%;transform:rotate(3deg)}
-    .tree:before{content:"";position:absolute;width:90px;height:76px;background:#2f552c;left:-37px;top:-53px;clip-path:polygon(50% 0,100% 75%,0 75%);filter:drop-shadow(4px 5px 0 #203d20)}
-    .tree:after{content:"";position:absolute;width:62px;height:55px;background:#47773a;left:-23px;top:-35px;clip-path:polygon(50% 0,100% 80%,0 80%)}
-    .rock{position:absolute;z-index:4;width:42px;height:30px;background:#8d9270;bottom:40%;left:19%;clip-path:polygon(18% 0,100% 22%,80% 100%,0 76%)}
-    .rock.r2{left:72%;bottom:39%;width:29px;height:23px;background:#aaa486}
-    .floating{position:absolute;border:1px solid #d9efa65a;background:#1b2718dd;padding:11px 14px;border-radius:10px;font: .72rem "DM Mono",monospace;color:var(--lime);box-shadow:0 12px 30px #0005}
-    .float-a{top:12%;left:0}.float-b{right:-2%;bottom:10%;color:#f0bd78;border-color:#e9a65b66}
-    section{padding:82px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
-    h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.06em;margin:8px 0 0}.section-desc{color:var(--muted);max-width:440px;line-height:1.6}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:25px;min-height:205px}
-    .card-icon{width:43px;height:43px;border-radius:12px;background:#c6f36a18;display:grid;place-items:center;font-size:1.3rem;margin-bottom:22px}
-    .card h3{margin:0 0 8px;font-size:1.15rem}.card p{margin:0;color:var(--muted);line-height:1.65;font-size:.94rem}
-    .join{background:linear-gradient(120deg,#26351f,#182219);border:1px solid #536b3e;border-radius:18px;padding:34px;display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center}
-    .server-address{display:inline-flex;align-items:center;gap:12px;margin-top:17px;background:#10170f;padding:12px 14px;border:1px solid var(--line);border-radius:9px;font-family:"DM Mono",monospace;color:var(--lime)}
-    .copy{border:0;background:#33442b;color:var(--text);padding:7px 10px;border-radius:6px;cursor:pointer}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:step}.step{border-top:1px solid var(--line);padding:20px 5px}.step:before{counter-increment:step;content:"0" counter(step);font: .8rem "DM Mono",monospace;color:var(--lime)}.step h3{margin:12px 0 6px}.step p{color:var(--muted);line-height:1.6;margin:0;font-size:.93rem}
-    .community{background:#151d13}.community-box{display:flex;justify-content:space-between;align-items:center;gap:30px}.community-box p{color:var(--muted);max-width:560px;line-height:1.65}
-    footer{padding:28px 0;border-top:1px solid #ffffff12;color:var(--muted);font-size:.82rem}.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:var(--lime);color:#17200f;padding:11px 16px;border-radius:8px;font-weight:700;transition:.2s;z-index:50;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
-
-    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .shop-card{background:linear-gradient(145deg,#222d1e,#171f16);border:1px solid #46583a;border-radius:14px;padding:24px;display:flex;flex-direction:column;min-height:260px}
-    .shop-tag{font: .7rem "DM Mono",monospace;color:var(--lime);letter-spacing:.1em;text-transform:uppercase}
-    .shop-card h3{font-size:1.35rem;margin:14px 0 8px}.shop-card p{color:var(--muted);line-height:1.6;margin:0 0 20px}
-    .shop-price{font-size:1.7rem;font-weight:700;margin-top:auto;margin-bottom:14px}
-    .shop-btn{display:block;text-align:center;border:1px solid #657456;color:var(--text);padding:11px;border-radius:8px;font-weight:700;opacity:.75;cursor:not-allowed}
-    .shop-note{margin-top:18px;padding:14px 16px;border-left:3px solid var(--orange);background:#e9a65b12;color:var(--muted);font-size:.88rem;line-height:1.6}
-    @media(max-width:760px){.shop-grid{grid-template-columns:1fr}}
-
-    @media(max-width:760px){.links,.nav-cta{display:none}.menu{display:block}.links.open{display:flex;position:absolute;top:76px;left:0;right:0;padding:22px;background:#10150f;flex-direction:column;border-bottom:1px solid var(--line)}.hero{padding:70px 0 55px}.hero-grid{grid-template-columns:1fr;gap:15px}.world{min-height:280px}.island{transform:scale(.85)}.cards,.steps{grid-template-columns:1fr}.section-head{display:block}.section-desc{margin-top:12px}.join{grid-template-columns:1fr}.community-box{align-items:flex-start;flex-direction:column}section{padding:60px 0}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11170f">
+<meta name="description" content="Grugtopia Minecraft community and rank store.">
+<title>Grugtopia — Enter the wild</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--bg:#10150f;--panel:#182018;--panel2:#202a1e;--line:#34412e;--text:#f0f1df;--muted:#a7b09a;--lime:#c6f36a;--green:#719b45;--orange:#e9a65b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Space Grotesk",sans-serif}
+a{color:inherit;text-decoration:none}
+button,select{font:inherit}
+.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+.topline{height:5px;background:linear-gradient(90deg,#536e37,#c6f36a,#e9a65b,#536e37)}
+header{position:sticky;top:0;z-index:20;background:#10150fee;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.25rem}
+.mark{width:38px;height:38px;display:grid;place-items:center;background:var(--lime);color:#17200f;border-radius:11px;font-size:1.25rem}
+.links{display:flex;gap:24px;color:var(--muted);font-size:.92rem}
+.links a:hover{color:var(--lime)}
+.btn,.nav-cta{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:9px;background:var(--lime);color:#18210f;font-weight:700;border:1px solid var(--lime);cursor:pointer}
+.btn.secondary{background:transparent;color:var(--text);border-color:#657456}
+.menu{display:none;background:none;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:8px}
+.hero{padding:100px 0 88px;background:radial-gradient(ellipse at 78% 40%,#536e373b,transparent 38%),linear-gradient(135deg,#151d13,#10150f 60%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:45px}
+.eyebrow,.mono,.shop-tag{font-family:"DM Mono",monospace;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem;color:var(--lime)}
+h1{font-size:clamp(3.5rem,8vw,6.7rem);line-height:.91;letter-spacing:-.075em;margin:20px 0}
+h1 span{color:var(--lime)}
+h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.06em;margin:8px 0}
+.lead,.section-desc{color:var(--muted);line-height:1.7;max-width:520px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero-note{color:var(--muted);margin-top:22px;font-size:.85rem}
+.world{min-height:300px;display:grid;place-items:center;position:relative}
+.island{width:300px;height:180px;background:linear-gradient(145deg,#91b45a,#587c39);clip-path:polygon(15% 0,100% 0,80% 75%,15% 100%,0 35%);filter:drop-shadow(0 20px 20px #0008)}
+section{padding:75px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card,.rank-card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:25px}
+.card-icon{font-size:1.7rem;margin-bottom:18px}
+.card h3{margin:0 0 8px}
+.card p,.rank-card p{color:var(--muted);line-height:1.65}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rank-card{display:flex;flex-direction:column;gap:11px}
+.rank-card h3{font-size:1.6rem;margin:0;color:var(--lime)}
+.rank-price{font-size:1.9rem;font-weight:700}
+.rank-weapon{padding:12px;background:#c6f36a12;border-radius:9px;color:var(--lime)}
+.rank-card p{margin:0}
+.rank-card .rank-desc{margin-bottom:8px}
+.founder-card{margin-top:20px;padding:25px;border:1px solid #a88b42;background:linear-gradient(120deg,#352d18,#211f17);border-radius:14px}
+.founder-card h3{color:#f3d477;font-size:1.7rem}
+.rank-calculator{margin-top:28px;padding:25px;background:var(--panel2);border:1px solid #46583a;border-radius:14px}
+.rank-calculator select{width:100%;max-width:360px;padding:13px;background:#10150f;color:var(--text);border:1px solid var(--line);border-radius:8px;margin-top:10px}
+.rank-result{margin-top:18px;padding:17px;background:#10170f;border-radius:9px;line-height:1.8}
+.shop-note{margin-top:20px;padding:15px;border-left:3px solid var(--orange);background:#e9a65b12;color:var(--muted);line-height:1.6}
+.join{background:linear-gradient(120deg,#26351f,#182219);border:1px solid #536b3e;border-radius:18px;padding:34px;display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center}
+.server-address{display:inline-flex;align-items:center;gap:12px;margin-top:17px;background:#10170f;padding:12px 14px;border:1px solid var(--line);border-radius:9px;font-family:"DM Mono",monospace;color:var(--lime)}
+.copy{border:0;background:#33442b;color:var(--text);padding:7px 10px;border-radius:6px;cursor:pointer}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{border-top:1px solid var(--line);padding:20px 5px}
+.step h3{margin:12px 0 6px}
+.step p{color:var(--muted);line-height:1.6}
+.community{background:#151d13}
+.community-box{display:flex;justify-content:space-between;align-items:center;gap:30px}
+.community-box p{color:var(--muted);max-width:560px;line-height:1.65}
+footer{padding:28px 0;border-top:1px solid #ffffff12;color:var(--muted);font-size:.82rem}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:var(--lime);color:#17200f;padding:11px 16px;border-radius:8px;transition:.2s;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){
+.links,.nav-cta{display:none}
+.menu{display:block}
+.links.open{display:flex;position:absolute;top:76px;left:0;right:0;padding:22px;background:#10150f;flex-direction:column}
+.hero{padding:65px 0}
+.hero-grid{grid-template-columns:1fr}
+.world{min-height:210px}
+.cards,.shop-grid,.steps{grid-template-columns:1fr}
+.section-head{display:block}
+.join{grid-template-columns:1fr}
+.community-box{align-items:flex-start;flex-direction:column}
+section{padding:55px 0}
+}
+</style>
 </head>
 <body>
-  <div class="topline"></div>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#home"><span class="mark">G</span> GRUGTOPIA</a>
-      <nav class="links" id="navLinks"><a href="#about">About</a><a href="#features">Features</a><a href="#shop">Shop</a><a href="#join">How to join</a><a href="#community">Community</a></nav>
-      <a class="nav-cta" href="#join">ENTER GRUGTOPIA ↗</a>
-      <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
-    </div>
-  </header>
+<div class="topline"></div>
+<header>
+<div class="wrap nav">
+<a class="brand" href="#home"><span class="mark">G</span> GRUGTOPIA</a>
+<nav class="links" id="navLinks">
+<a href="#about">About</a><a href="#features">Features</a><a href="#shop">Shop</a><a href="#join">How to join</a><a href="#community">Community</a>
+</nav>
+<a class="nav-cta" href="#join">ENTER GRUGTOPIA ↗</a>
+<button class="menu" id="menuBtn">☰</button>
+</div>
+</header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="wrap hero-grid">
-        <div>
-          <div class="eyebrow">✦ A world worth getting lost in</div>
-          <h1>WELCOME TO<br><span>GRUGTOPIA.</span></h1>
-          <p class="lead">A Minecraft community made for big adventures, unexpected alliances and stories you'll keep talking about.</p>
-          <div class="actions"><a class="btn" href="#join">PLAY MINECRAFT <span>↗</span></a><a class="btn secondary" href="#community">MEET THE COMMUNITY</a></div>
-          <div class="hero-note"><span class="dot"></span> Your next adventure starts here</div>
-        </div>
-        <div class="world" aria-label="Stylized floating Minecraft-inspired island">
-          <div class="sun"></div><div class="floating float-a">BIOME // UNKNOWN</div>
-          <div class="island"><div class="island-top"></div><div class="island-side"></div><div class="island-shadow"></div><div class="tree"></div><div class="rock"></div><div class="rock r2"></div></div>
-          <div class="floating float-b">GRUG APPROVES ✓</div>
-        </div>
-      </div>
-    </section>
+<main>
+<section class="hero" id="home">
+<div class="wrap hero-grid">
+<div>
+<div class="eyebrow">✦ A world worth getting lost in</div>
+<h1>WELCOME TO<br><span>GRUGTOPIA.</span></h1>
+<p class="lead">A Minecraft community made for big adventures, unexpected alliances and stories you'll keep talking about.</p>
+<div class="actions"><a class="btn" href="#join">PLAY MINECRAFT ↗</a><a class="btn secondary" href="#community">MEET THE COMMUNITY</a></div>
+<div class="hero-note">✦ Your next adventure starts here</div>
+</div>
+<div class="world"><div class="island"></div></div>
+</div>
+</section>
 
-    <section id="about">
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">01 / THE WORLD</div><h2>More than just blocks.</h2></div><p class="section-desc">Grugtopia is about the people you meet and the memories you make along the way. Grab your gear, find your crew and make the world yours.</p></div>
-        <div class="cards">
-          <article class="card"><div class="card-icon">⛏</div><h3>Make your mark</h3><p>Build something legendary, explore the map and leave your own story in the world.</p></article>
-          <article class="card"><div class="card-icon">🧭</div><h3>Find your adventure</h3><p>Whether you love exploring, collecting, building or competing, there's room for your playstyle.</p></article>
-          <article class="card"><div class="card-icon">🤝</div><h3>Bring your people</h3><p>Meet other players, team up on projects and become part of the Grugtopia community.</p></article>
-        </div>
-      </div>
-    </section>
+<section id="about">
+<div class="wrap">
+<div class="section-head"><div><div class="eyebrow">01 / THE WORLD</div><h2>More than just blocks.</h2></div><p class="section-desc">Grugtopia is about the people you meet and the memories you make along the way.</p></div>
+<div class="cards">
+<article class="card"><div class="card-icon">⛏</div><h3>Make your mark</h3><p>Build something legendary and leave your own story in the world.</p></article>
+<article class="card"><div class="card-icon">🧭</div><h3>Find your adventure</h3><p>Explore, collect, build or compete with your friends.</p></article>
+<article class="card"><div class="card-icon">🤝</div><h3>Bring your people</h3><p>Meet other players and become part of the community.</p></article>
+</div>
+</div>
+</section>
 
-    <section id="features" style="padding-top:10px">
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">02 / WHAT'S INSIDE</div><h2>Your world. Your rules.</h2></div><p class="section-desc">A few reasons to jump in. Replace these cards with your server's real plugins, events and features.</p></div>
-        <div class="cards">
-          <article class="card"><div class="card-icon">🌿</div><h3>A living community</h3><p>Get to know the players, make friends and find people to play with.</p></article>
-          <article class="card"><div class="card-icon">⚔️</div><h3>Events & challenges</h3><p>Take part in community events, challenges and friendly competitions.</p></article>
-          <article class="card"><div class="card-icon">🏡</div><h3>Build something big</h3><p>Start a base, create a shop or work together on a build everyone remembers.</p></article>
-        </div>
-      </div>
-    </section>
+<section id="features">
+<div class="wrap">
+<div class="section-head"><div><div class="eyebrow">02 / WHAT'S INSIDE</div><h2>Your world. Your rules.</h2></div></div>
+<div class="cards">
+<article class="card"><div class="card-icon">🌿</div><h3>A living community</h3><p>Get to know players and find people to play with.</p></article>
+<article class="card"><div class="card-icon">⚔️</div><h3>Events & challenges</h3><p>Join community events and friendly competitions.</p></article>
+<article class="card"><div class="card-icon">🏡</div><h3>Build something big</h3><p>Start a base, create a shop or work together.</p></article>
+</div>
+</div>
+</section>
 
+<section id="shop">
+<div class="wrap">
+<div class="section-head">
+<div><div class="eyebrow">03 / GRUGTOPIA STORE</div><h2>Rise through the ranks.</h2></div>
+<p class="section-desc">Start at VIP and work your way up. Every rank unlocks a unique custom weapon.</p>
+</div>
 
-    <section id="shop">
-      <div class="wrap">
-        <div class="section-head"><div><div class="eyebrow">03 / GRUGTOPIA STORE</div><h2>Gear up your journey.</h2></div><p class="section-desc">Browse the planned store. Rank perks and currency bundles will be listed here once the server shop is configured.</p></div>
-        <div class="shop-grid">
-          <article class="shop-card"><div class="shop-tag">PLAYER RANKS</div><h3>Choose your rank</h3><p>Special titles, cosmetic perks and other rank benefits. The exact perks and prices will be announced here.</p><div class="shop-price">Coming soon</div><span class="shop-btn">Purchases not set up yet</span></article>
-          <article class="shop-card"><div class="shop-tag">IN-GAME CURRENCY</div><h3>Get more server money</h3><p>Currency bundles for use in Grugtopia. Bundle sizes, prices and delivery details are still to be configured.</p><div class="shop-price">Coming soon</div><span class="shop-btn">Purchases not set up yet</span></article>
-          <article class="shop-card"><div class="shop-tag">STORE SUPPORT</div><h3>Support the server</h3><p>Any future purchases should clearly explain exactly what you receive and how it supports the community.</p><div class="shop-price">Details soon</div><span class="shop-btn">Purchases not set up yet</span></article>
-        </div>
-        <div class="shop-note"><strong>Store setup:</strong> This is currently a shop preview, not a payment checkout. Before accepting real-money payments, have a parent or guardian manage the payment-provider account and review the current Minecraft/Mojang and Minehut monetization rules. Clearly disclose prices, perks, refund terms and delivery.</div>
-      </div>
-    </section>
+<div class="shop-grid">
+<article class="rank-card"><div class="shop-tag">RANK 01</div><h3>VIP</h3><div class="rank-price">$4.99</div><div class="rank-weapon">⚔ Emerald Edge</div><p><strong>Treasure Hunter</strong></p><p class="rank-desc">A chance for bonus mob loot.</p></article>
+<article class="rank-card"><div class="shop-tag">RANK 02</div><h3>MVP</h3><div class="rank-price">$9.99</div><div class="rank-weapon">🔱 Frostbite</div><p><strong>Frost Burst</strong></p><p class="rank-desc">A chilling burst that briefly slows nearby opponents.</p></article>
+<article class="rank-card"><div class="shop-tag">RANK 03</div><h3>ELITE</h3><div class="rank-price">$17.99</div><div class="rank-weapon">✨ Arcane Staff</div><p><strong>Arcane Pulse</strong></p><p class="rank-desc">A magical pulse with knockback and visual effects.</p></article>
+<article class="rank-card"><div class="shop-tag">RANK 04</div><h3>MASTER</h3><div class="rank-price">$24.99</div><div class="rank-weapon">🔥 Infernal Axe</div><p><strong>Infernal Strike</strong></p><p class="rank-desc">A fiery impact around your target.</p></article>
+<article class="rank-card"><div class="shop-tag">RANK 05</div><h3>LEGEND</h3><div class="rank-price">$39.99</div><div class="rank-weapon">🏹 Celestial Bow</div><p><strong>Starfall</strong></p><p class="rank-desc">A celestial burst at your target area.</p></article>
+</div>
 
-    <section id="join">
-      <div class="wrap">
-        <div class="join">
-          <div><div class="eyebrow">03 / YOUR NEXT STEP</div><h2>Ready to join Grugtopia?</h2><p class="section-desc">Copy the server address, open Minecraft and add Grugtopia to your server list.</p>
-            <div class="server-address"><span id="serverIp">YOUR.SERVER.IP</span><button class="copy" id="copyIp">COPY</button></div>
-          </div>
-          <a class="btn" href="#community">JOIN THE COMMUNITY ↗</a>
-        </div>
-        <div style="height:30px"></div>
-        <div class="steps">
-          <div class="step"><h3>Open Minecraft</h3><p>Launch the Minecraft edition and version supported by the server.</p></div>
-          <div class="step"><h3>Add a server</h3><p>Choose Multiplayer, then Add Server. Enter the address shown above.</p></div>
-          <div class="step"><h3>Jump in</h3><p>Save the server, connect and say hello to the community.</p></div>
-        </div>
-      </div>
-    </section>
+<div class="founder-card">
+<div class="shop-tag">✦ SPECIAL EDITION</div>
+<h3>FOUNDER — $49.99</h3>
+<div class="rank-weapon">🌟 Founder Relic</div>
+<p><strong>Eternal Legacy</strong></p>
+<p>A special rank separate from the normal upgrade progression.</p>
+</div>
 
-    <section class="community" id="community">
-      <div class="wrap community-box">
-        <div><div class="eyebrow">04 / THE PEOPLE</div><h2>Find your tribe.</h2><p>Announcements, conversations, help and community hangouts — the Grugtopia Discord is the place to keep up with what's happening.</p></div>
-        <a class="btn" href="https://discord.gg/YOUR_INVITE" target="_blank" rel="noopener">JOIN DISCORD ↗</a>
-      </div>
-    </section>
-  </main>
+<div class="rank-calculator">
+<div class="eyebrow">RANK UPGRADE CALCULATOR</div>
+<h2>What's your current rank?</h2>
+<p class="section-desc">Select your current rank to see the price of your next upgrade.</p>
+<select id="currentRank">
+<option value="NONE">No rank yet</option>
+<option value="VIP">VIP</option>
+<option value="MVP">MVP</option>
+<option value="ELITE">ELITE</option>
+<option value="MASTER">MASTER</option>
+<option value="LEGEND">LEGEND</option>
+</select>
+<div class="rank-result" id="rankResult" aria-live="polite">Your first rank is VIP.<br><strong>Price: $4.99</strong></div>
+</div>
 
-  <footer><div class="wrap foot"><span>© <span id="year"></span> GRUGTOPIA. Made for the community.</span><span>Not affiliated with Mojang or Microsoft.</span></div></footer>
-  <div class="toast" id="toast">Server address copied!</div>
-  <script>
-    // CUSTOMIZE THESE VALUES BEFORE PUBLISHING:
-    const SERVER_IP = "grugtopia.minehut.gg";
-    const DISCORD_INVITE = "https://discord.gg/JEJBrHyPbF";
-    document.getElementById("serverIp").textContent = SERVER_IP;
-    document.querySelector('.community-box .btn').href = DISCORD_INVITE;
-    document.getElementById("year").textContent = new Date().getFullYear();
-    document.getElementById("copyIp").addEventListener("click", async () => {
-      try { await navigator.clipboard.writeText(SERVER_IP); }
-      catch(e) {
-        const t=document.createElement("textarea"); t.value=SERVER_IP; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
-      }
-      const toast=document.getElementById("toast"); toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),1800);
-    });
-    document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("open"));
-    document.querySelectorAll("#navLinks a").forEach(a=>a.addEventListener("click",()=>document.getElementById("navLinks").classList.remove("open")));
-  </script>
+<div class="shop-note"><strong>Store preview:</strong> Purchases are not enabled yet. Prices and perks are proposals. Payment and rank delivery are not connected. A parent or guardian must manage payment setup, and the server must follow applicable Minecraft and Minehut commercial rules.</div>
+</div>
+</section>
+
+<section id="join">
+<div class="wrap">
+<div class="join">
+<div><div class="eyebrow">04 / YOUR NEXT STEP</div><h2>Ready to join Grugtopia?</h2><p class="section-desc">Copy the server address and add Grugtopia to your Minecraft server list.</p>
+<div class="server-address"><span id="serverIp">grugtopia.minehut.gg</span><button class="copy" id="copyIp">COPY</button></div>
+</div>
+<a class="btn" href="#community">JOIN THE COMMUNITY ↗</a>
+</div>
+<div style="height:30px"></div>
+<div class="steps">
+<div class="step"><h3>Open Minecraft</h3><p>Launch the Minecraft edition supported by the server.</p></div>
+<div class="step"><h3>Add a server</h3><p>Choose Multiplayer, then Add Server and enter the address.</p></div>
+<div class="step"><h3>Jump in</h3><p>Connect and say hello to the community.</p></div>
+</div>
+</div>
+</section>
+
+<section class="community" id="community">
+<div class="wrap community-box">
+<div><div class="eyebrow">05 / THE PEOPLE</div><h2>Find your tribe.</h2><p>Announcements, conversations, help and community hangouts — the Grugtopia Discord is the place to keep up with what's happening.</p></div>
+<a class="btn" href="https://discord.gg/JEJBrHyPbF" target="_blank" rel="noopener">JOIN DISCORD ↗</a>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap foot"><span>© <span id="year"></span> GRUGTOPIA. Made for the community.</span><span>Not affiliated with Mojang or Microsoft.</span></div></footer>
+<div class="toast" id="toast">Server address copied!</div>
+
+<script>
+const SERVER_IP="grugtopia.minehut.gg";
+document.getElementById("year").textContent=new Date().getFullYear();
+
+document.getElementById("copyIp").addEventListener("click",async()=>{
+try{await navigator.clipboard.writeText(SERVER_IP);}
+catch(e){
+const t=document.createElement("textarea");
+t.value=SERVER_IP;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();
+}
+const toast=document.getElementById("toast");
+toast.classList.add("show");
+setTimeout(()=>toast.classList.remove("show"),1800);
+});
+
+document.getElementById("menuBtn").addEventListener("click",()=>{
+document.getElementById("navLinks").classList.toggle("open");
+});
+
+document.querySelectorAll("#navLinks a").forEach(a=>a.addEventListener("click",()=>{
+document.getElementById("navLinks").classList.remove("open");
+}));
+
+const prices={VIP:4.99,MVP:9.99,ELITE:17.99,MASTER:24.99,LEGEND:39.99};
+const ranks=["VIP","MVP","ELITE","MASTER","LEGEND"];
+const selector=document.getElementById("currentRank");
+const result=document.getElementById("rankResult");
+
+function updatePrice(){
+const current=selector.value;
+if(current==="NONE"){
+result.innerHTML="Your first rank is <strong>VIP</strong>.<br><strong>Price: $4.99</strong>";
+return;
+}
+const index=ranks.indexOf(current);
+if(index===ranks.length-1){
+result.innerHTML="You've reached <strong>LEGEND</strong>! You've unlocked the highest normal rank.";
+return;
+}
+const next=ranks[index+1];
+const difference=prices[next]-prices[current];
+result.innerHTML="Your next rank is <strong>"+next+"</strong>.<br><strong>Upgrade price: $"+difference.toFixed(2)+"</strong>";
+}
+selector.addEventListener("change",updatePrice);
+</script>
 </body>
 </html>
